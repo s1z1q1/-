@@ -22,4 +22,4 @@ max_new_tokens=512
 test_text = wikitext_samples[0][:4000]
 ```
 
-的条件下，经过 MQA 优化的生成时间为7.31s，未经优化的生成时间为7.18s，这是由于在我更长的输入后，Patch 带来的额外 Python 开销超过了 KV Sharing 的收益。实际上，我所实现的优化方法并不是真正工业级别的 MQA ，因为我并没有真正改变 Attention 的主计算，而是修改了 KV Cache，是一种 MQA-Style 的 KV Sharing ，在自回归生成的模式下，后面的 token 会继续读取历史的 KV Cache ，从而造成加速效果，且并不破坏PPL。 
+的条件下，经过 MQA 优化的生成时间为7.31s，未经优化的生成时间为7.18s，这是由于在我更长的输入后，Patch 带来的额外 Python 开销超过了 KV Sharing 的收益。实际上，我所实现的优化方法并不是真正工业级别的 MQA ，它更偏向于一种 KV Cache 优化策略，而非严格重新训练后的原生 Multi-Query Attention，我并没有真正改变 Attention 的主计算，而是修改了 KV Cache，是一种 MQA-Style 的 KV Sharing ，在自回归生成的模式下，后面的 token 会继续读取历史的 KV Cache ，因此其主要效果体现在推理速度与显存开销优化，而不是 PPL 改善，
