@@ -8,11 +8,7 @@
 
 ```
 max_new_tokens=256
-```
 
-和
-
-```
 test_text = wikitext_samples[0][:2000]
 ```
 
@@ -22,11 +18,7 @@ test_text = wikitext_samples[0][:2000]
 
 ```
 max_new_tokens=512
-```
 
-和
-
-```
 test_text = wikitext_samples[0][:4000]
 ```
 
